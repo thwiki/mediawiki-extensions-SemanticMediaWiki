@@ -151,7 +151,7 @@ abstract class DataItemHandler {
 	 *
 	 * @return array
 	 */
-	abstract public function getWhereConds( DataItem $dataItem );
+	// abstract public function getWhereConds( DataItem $dataItem );
 
 	/**
 	 * Return an array of fields=>values that is to be inserted when

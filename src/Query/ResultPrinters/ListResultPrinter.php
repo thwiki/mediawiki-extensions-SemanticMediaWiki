@@ -77,6 +77,10 @@ class ListResultPrinter extends ResultPrinter {
 
 		$builder = new ListResultBuilder( $queryResult, $this->mLinker, $GLOBALS['smwgPlainList'] );
 
+		if ( isset( $this->params['sep'] ) && $this->params['sep'] !== '' ) {
+			$this->params['sep'] = str_replace('\n', "\n", $this->params['sep']);
+		}
+
 		$builder->set( $this->params );
 
 		$builder->set( [

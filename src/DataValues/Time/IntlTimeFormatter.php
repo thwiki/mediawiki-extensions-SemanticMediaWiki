@@ -149,7 +149,7 @@ class IntlTimeFormatter {
 	public function containsValidDateFormatRule( $format ) {
 
 		foreach ( str_split( $format ) as $value ) {
-			if ( in_array( $value, [ 'd', 'D', 'j', 'l', 'N', 'w', 'W', 'F', 'M', 'm', 'n', 't', 'L', 'o', 'Y', 'y', "c", 'r' ] ) ) {
+			if ( in_array( $value, [ 'd', 'D', 'j', 'l', 'N', 'w', 'W', 'F', 'M', 'm', 'n', 't', 'L', 'o', 'Y', 'y', "c", 'r', 'f', 'q' ] ) ) {
 				return true;
 			}
 		}
@@ -166,6 +166,8 @@ class IntlTimeFormatter {
 	 * - M	A short textual representation of a month, three letters
 	 * - a	Lowercase Ante meridiem and Post meridiem am or pm
 	 * - A	Uppercase Ante meridiem and Post meridiem
+	 * - f	First half or Second half of the year, 1 or 2
+	 * - q	Quarter number of a year, 1 through 4
 	 */
 	private function formatWithLocalizedTextReplacement( $dateTime, $format ) {
 
@@ -207,6 +209,22 @@ class IntlTimeFormatter {
 			$output = str_replace(
 				$dateTime->format( 'D' ),
 				$this->language->getWeekdayAbbreviation( $dayNumber ),
+				$output
+			);
+		}
+
+		if ( strpos( $format, 'f' ) !== false ) {
+			$output = str_replace(
+				$dateTime->format( 'f' ),
+				$monthNumber > 6 ? 2 : 1,
+				$output
+			);
+		}
+
+		if ( strpos( $format, 'q' ) !== false ) {
+			$output = str_replace(
+				$dateTime->format( 'q' ),
+				floor( ( $monthNumber + 2 ) / 3 ),
 				$output
 			);
 		}

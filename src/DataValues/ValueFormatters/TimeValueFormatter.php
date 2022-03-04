@@ -350,7 +350,7 @@ class TimeValueFormatter extends DataValueFormatter {
 		$dataItem = $this->dataValue->getDataItem();
 		$format = strtoupper( $this->dataValue->getOutputFormat() );
 
-		if ( $format == 'ISO' || $this->dataValue->getOutputFormat() == '-' ) {
+		if ( $format === '' || $format == 'ISO' || $this->dataValue->getOutputFormat() == '-' ) {
 			return $this->getISO8601Date();
 		} elseif ( $format == 'MEDIAWIKI' ) {
 			return $this->getMediaWikiDate();

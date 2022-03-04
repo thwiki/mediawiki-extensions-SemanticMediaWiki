@@ -112,6 +112,8 @@ class ListResultBuilder {
 
 		}
 
+		$this->set( 'many', str_replace( '\n', "\n", $this->get('many') ) );
+
 		$this->set( 'result-open-tag', $this->replaceVariables( $this->get( 'result-open-tag' ) ) );
 	}
 

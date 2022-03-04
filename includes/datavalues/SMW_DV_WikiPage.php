@@ -294,6 +294,8 @@ class SMWWikiPageValue extends SMWDataValue {
 			}
 
 			return $text;
+		} elseif ( $this->m_outformat == 'id' ) {
+			return $this->m_caption !== false ? $this->m_caption : $this->getTitle()->getArticleID();
 		}
 
 		$noImage = $this->getOption( self::NO_IMAGE, false );

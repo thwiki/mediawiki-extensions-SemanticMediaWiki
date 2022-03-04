@@ -107,7 +107,11 @@ class DataItemHandlerFactory {
 			case DataItem::TYPE_ERROR:
 				throw new DataItemHandlerException( "There is no DI handler for DataItem::TYPE_ERROR." );
 			default:
-				throw new DataItemHandlerException( "The value \"$type\" is not a valid dataitem ID." );
+				$handler = null;
+				\Hooks::run( 'SMW::DataItemHandlerFactory::newHandlerByType', [ $type, &$this->store, &$handler ] );
+				if ( empty( $handler ) ) {
+					throw new DataItemHandlerException( "The value \"$type\" is not a valid dataitem ID." );
+				}
 		}
 
 		$handler->setFieldTypeFeatures(

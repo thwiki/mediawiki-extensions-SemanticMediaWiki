@@ -107,6 +107,17 @@ class PropertyTableInfoFetcher {
 		);
 	}
 
+	private static function getDiTypeTableIdMap() {
+		static $diTypeTableIdMap = null;
+
+		if ( $diTypeTableIdMap == null ) {
+			$diTypeTableIdMap = self::$defaultDiTypeTableIdMap;
+			\Hooks::run( 'SMW::PropertyTableInfoFetcher::DiTypeTableIdMap', [ &$diTypeTableIdMap ] );
+		}
+
+		return $diTypeTableIdMap;
+	}
+
 	/**
 	 * Find the id of a property table that is normally used to store
 	 * data items of the given type. The empty string is returned if
@@ -120,8 +131,9 @@ class PropertyTableInfoFetcher {
 	 */
 	public static function findTableIdForDataItemTypeId( $dataItemId ) {
 
-		if ( array_key_exists( $dataItemId, self::$defaultDiTypeTableIdMap ) ) {
-			return self::$defaultDiTypeTableIdMap[$dataItemId];
+		$diTypeTableIdMap = self::getDiTypeTableIdMap();
+		if ( array_key_exists( $dataItemId, $diTypeTableIdMap ) ) {
+			return $diTypeTableIdMap[$dataItemId];
 		}
 
 		return '';
@@ -133,7 +145,7 @@ class PropertyTableInfoFetcher {
 	 * @return array
 	 */
 	public function getDefaultDataItemTables() {
-		return array_values( self::$defaultDiTypeTableIdMap );
+		return array_unique( array_values( self::getDiTypeTableIdMap() ) );
 	}
 
 	/**
@@ -225,7 +237,7 @@ class PropertyTableInfoFetcher {
 		);
 
 		$definitionBuilder->doBuild(
-			self::$defaultDiTypeTableIdMap,
+			self::getDiTypeTableIdMap(),
 			$enabledSpecialProperties,
 			$this->customFixedPropertyList
 		);

@@ -599,4 +599,9 @@ class SMWNumberValue extends SMWDataValue {
 		$formatstring = str_replace( [ '#LOCL', 'LOCL' ], '', $formatstring );
 	}
 
+	public function getFormattedValue( $number, $unit = '' ) {
+		$this->convertToMainUnit( $number, $unit );
+		$this->makeUserValue();
+		return $this->getShortText( SMW_OUTPUT_WIKI, null );
+	}
 }

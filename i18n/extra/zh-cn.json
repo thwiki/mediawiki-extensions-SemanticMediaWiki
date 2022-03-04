@@ -14,29 +14,33 @@
     },
     "datatype": {
         "labels": {
-            "_wpg": "页面型",
-            "_txt": "文本型",
-            "_cod": "代码型",
-            "_boo": "布尔型",
-            "_num": "数值型",
-            "_geo": "地理坐标型",
-            "_tem": "温度型",
-            "_dat": "日期型",
-            "_ema": "电子邮件地址型",
-            "_uri": "URL型",
-            "_anu": "注释URI型",
-            "_tel": "电话号码型",
-            "_rec": "记录型",
-            "_qty": "数量型",
+            "_wpg": "页面",
+            "_txt": "文本",
+            "_cod": "代码",
+            "_boo": "布尔",
+            "_num": "数字",
+            "_geo": "地理座标",
+            "_tem": "温度",
+						"_dur": "时长",
+            "_dat": "日期",
+            "_ema": "Email",
+            "_uri": "URL",
+						"_lin": "链接",
+            "_anu": "URI的注解",
+            "_tel": "电话号码",
+            "_rec": "记录",
+            "_qty": "数量",
+						"_pri": "价格",
+						"_shk": "搜索",
             "_mlt_rec": "Monolingual text",
             "_eid": "External identifier",
             "_ref_rec": "Reference"
         },
         "aliases": {
-            "浮点型": "_num",
-            "整数型": "_num",
-            "枚举型": "_txt",
-            "字符串型": "_txt",
+            "浮点数": "_num",
+            "整数": "_num",
+            "枚举": "_txt",
+            "字符串": "_txt",
             "Float": "_num",
             "Integer": "_num",
             "Enumeration": "_txt",
@@ -45,42 +49,42 @@
     },
     "property": {
         "labels": {
-            "_TYPE": "具有类型",
-            "_URI": "等价URI",
-            "_SUBP": "是……的子属性",
-            "_SUBC": "是……的子分类",
+            "_TYPE": "设有类型",
+            "_URI": "对应的URI",
+            "_SUBP": "所属的子属性",
+            "_SUBC": "所属的子分类",
             "_UNIT": "显示单位",
-            "_IMPO": "导入自",
-            "_CONV": "对应于",
+            "_IMPO": "输入来源",
+            "_CONV": "符合于",
             "_SERV": "提供服务",
             "_PVAL": "允许取值",
             "_MDAT": "修改日期",
             "_CDAT": "创建日期",
-            "_NEWP": "是一个新页面",
-            "_LEDT": "最后编者为",
-            "_ERRP": "具有……的不当取值",
-            "_LIST": "具有字段",
-            "_SOBJ": "具有子对象",
-            "_ASK": "具有查询",
+            "_NEWP": "是否为新页面",
+            "_LEDT": "最后编辑者是",
+            "_ERRP": "有无不正确的值",
+            "_LIST": "有无字段",
+            "_SOBJ": "有无子对象",
+            "_ASK": "有无查询",
             "_ASKST": "查询字符串",
             "_ASKFO": "查询格式",
             "_ASKSI": "查询大小",
             "_ASKDE": "查询深度",
-            "_ASKDU": "查询持续时间",
+            "_ASKDU": "查询时长",
             "_MEDIA": "媒体类型",
             "_MIME": "MIME类型",
-            "_ERRC": "Has processing error",
-            "_ERRT": "Has processing error text",
-            "_PREC": "Display precision of",
-            "_LCODE": "Language code",
-            "_TEXT": "Text",
-            "_PDESC": "Has property description",
-            "_PVAP": "Allows pattern",
-            "_DTITLE": "Display title of",
-            "_PVUC": "Has uniqueness constraint",
+            "_ERRC": "有无运行错误",
+            "_ERRT": "有无运行错误说明",
+            "_PREC": "显示精度",
+            "_LCODE": "语言代号",
+            "_TEXT": "文本",
+            "_PDESC": "有无属性说明",
+            "_PVAP": "允许格式",
+            "_DTITLE": "显示标题",
+            "_PVUC": "有无唯一限制",
             "_PEID": "External identifier",
             "_PEFU": "External formatter uri",
-            "_ASKSC": "Query source"
+            "_ASKSC": "查询来源"
         },
         "aliases": {
             "显示计量单位": "_UNIT"
@@ -139,32 +143,32 @@
         ],
         "days": [
             [
-                "Monday",
-                "Mon"
+                "星期一",
+                "一"
             ],
             [
-                "Tuesday",
-                "Tue"
+                "星期二",
+                "二"
             ],
             [
-                "Wednesday",
-                "Wed"
+                "星期三",
+                "三"
             ],
             [
-                "Thursday",
-                "Thu"
+                "星期四",
+                "四"
             ],
             [
-                "Friday",
-                "Fri"
+                "星期五",
+                "五"
             ],
             [
-                "Saturday",
-                "Sat"
+                "星期六",
+                "六"
             ],
             [
-                "Sunday",
-                "Sun"
+                "星期日",
+                "日"
             ]
         ],
         "precision": {
