@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
@@ -22,6 +22,12 @@ jobs:
             database_type: mysql
             experimental: true
           - mediawiki_version: 1.37
+            database_type: mysql
+            experimental: true
+          - mediawiki_version: 1.38
+            database_type: mysql
+            experimental: true
+          - mediawiki_version: 1.39
             database_type: mysql
             experimental: true
 
@@ -63,11 +69,11 @@ jobs:
           mv composer.phar /usr/local/bin/composer
 
       - name: Checkout Extension
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: ${{ env.EXT_NAME }}
 
-      # Setting actions/checkout@v2 path to env.MW_EXT_PATH fails with "Repository path '/var/www/html/extensions' is not under ..."
+      # Setting actions/checkout@v3 path to env.MW_EXT_PATH fails with "Repository path '/var/www/html/extensions' is not under ..."
       # See also open PR https://github.com/actions/checkout/pull/388
       - name: Move Extension
         run: |
@@ -110,7 +116,14 @@ jobs:
           tail -n5 ${{ env.MW_INSTALL_PATH }}/LocalSettings.php
           php ${{ env.MW_INSTALL_PATH }}/maintenance/update.php --quick
 
+      - name: Run unit tests
+        run: >
+          composer phpunit
+          --working-dir ${{ env.MW_INSTALL_PATH }}/extensions/SemanticMediaWiki
+          -- --testsuite semantic-mediawiki-unit
+
       - name: Run Tests
         run: >
           composer phpunit
           --working-dir ${{ env.MW_INSTALL_PATH }}/extensions/SemanticMediaWiki
+          -- --testsuite semantic-mediawiki-check,semantic-mediawiki-data-model,semantic-mediawiki-integration,semantic-mediawiki-import,semantic-mediawiki-structure

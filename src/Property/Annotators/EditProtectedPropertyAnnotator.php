@@ -4,6 +4,7 @@ namespace SMW\Property\Annotators;
 
 use Html;
 use ParserOutput;
+use SMW\MediaWiki\PageInfoProvider;
 use SMW\Message;
 use SMW\PropertyAnnotator;
 use Title;
@@ -63,11 +64,6 @@ class EditProtectedPropertyAnnotator extends PropertyAnnotatorDecorator {
 			return false;
 		}
 
-		// FIXME 3.0; Only MW 1.25+ (ParserOutput::setIndicator)
-		if ( !method_exists( $parserOutput, 'setIndicator' ) ) {
-			return false;
-		}
-
 		$property = $this->dataItemFactory->newDIProperty( '_EDIP' );
 
 		if ( !$this->isEnabledProtection( $property ) && !$this->hasEditProtection() ) {
@@ -121,7 +117,7 @@ class EditProtectedPropertyAnnotator extends PropertyAnnotatorDecorator {
 
 		//$this->title->flushRestrictions();
 
-		if ( !$this->title->isProtected( 'edit' ) ) {
+		if ( !PageInfoProvider::isProtected( $this->title, 'edit' ) ) {
 			return false;
 		}
 

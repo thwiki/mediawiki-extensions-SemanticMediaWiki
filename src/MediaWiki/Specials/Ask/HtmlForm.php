@@ -3,9 +3,8 @@
 namespace SMW\MediaWiki\Specials\Ask;
 
 use Html;
-use SMW\Message;
+use SMW\Query\QueryResult;
 use Title;
-use SMWQueryResult as QueryResult;
 use SMW\Utils\HtmlTabs;
 use SMW\Utils\UrlArgs;
 use SMW\Query\QueryLinker;
@@ -160,7 +159,7 @@ class HtmlForm {
 		return Html::rawElement( 'form', $params, $html );
 	}
 
-	private function buildHTML( $urlArgs, $queryResult, $queryLog ) {
+	private function buildHTML( $urlArgs, $queryResult, array $queryLog ) {
 
 		$navigation = '';
 		$queryLink = null;
@@ -168,8 +167,8 @@ class HtmlForm {
 		$infoText = '';
 
 		if ( $queryLog !== [] ) {
-			$infoText = '<h3>' . wfMessage( 'smw-ask-extra-query-log' )->text() . '</h3>';
-			$infoText .= '<pre>' . json_encode( $queryLog, JSON_PRETTY_PRINT ) . '</pre>';
+			$infoText = '<h3>' . wfMessage( 'smw-ask-extra-query-log' )->escaped() . '</h3>';
+			$infoText .= Html::element( 'pre', [], json_encode( $queryLog, JSON_PRETTY_PRINT ) );
 		}
 
 		if ( $queryResult instanceof QueryResult ) {
@@ -344,7 +343,7 @@ class HtmlForm {
 			],
 			QueryInputWidget::table(
 				$this->queryString,
-				$urlArgs->get( 'po' )
+				$urlArgs->get( 'po', '' )
 			)
 		);
 

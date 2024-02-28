@@ -35,7 +35,7 @@ class Bulk implements JsonSerializable {
 	private $head = [];
 
 	/**
-	 * @var array
+	 * @var array|string
 	 */
 	private $response = [];
 
@@ -133,9 +133,9 @@ class Bulk implements JsonSerializable {
 	/**
 	 * @since 3.2
 	 *
-	 * @return array
+	 * @return array|string
 	 */
-	public function getResponse() : array {
+	public function getResponse() {
 		return $this->response;
 	}
 
@@ -156,7 +156,7 @@ class Bulk implements JsonSerializable {
 	 *
 	 * @return string
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize(): string {
 		return json_encode( $this->bulk );
 	}
 

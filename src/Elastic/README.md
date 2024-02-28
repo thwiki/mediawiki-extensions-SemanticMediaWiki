@@ -12,7 +12,7 @@ The objective is to provide an interface to Elasticsearch to:
 
 ## Requirements
 
-- Elasticsearch: Recommended 6.1+, Tested with 5.6.6
+- Elasticsearch: Recommended 7.10.x (SMW 4.1.3), tested with 5.6.6, 6.1+ (SMW 3.x)
 - Semantic MediaWiki: 3.0+
 - [`elasticsearch/elasticsearch`][packagist:es] (PHP ^7.0 `~6.0` or PHP ^5.6.6 `~5.3`)
 
@@ -52,7 +52,7 @@ Elasticsearch is not expected to be used as data store replacement which means a
 The `ElasticStore` provides a customized serialization format to transform and transfer the required data to Elasticsearch. The `QueryEngine` provides a #ask-ES DSL interpreter (see [domain language][es:dsl]) which ensures that any existing `#ask` query can be answered by the Elasticsearch cluster without changing its syntax when switching from a `SQLStore` (given that index process has been completed).
 
 [packagist:es]:https://packagist.org/packages/elasticsearch/elasticsearch
-[es:php-api]: https://www.elastic.co/guide/en/elasticsearch/client/php-api/6.0/_installation_2.html
+[es:php-api]: https://www.elastic.co/guide/en/elasticsearch/client/php-api/6.x/index.html
 [es:dsl]: https://www.elastic.co/guide/en/elasticsearch/reference/6.1/query-dsl.html
 [es:hardware]: https://www.elastic.co/guide/en/elasticsearch/guide/2.x/hardware.html#_memory
 [es:relevance]: https://www.elastic.co/guide/en/elasticsearch/guide/master/relevance-intro.html

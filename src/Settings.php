@@ -58,7 +58,9 @@ class Settings extends Options {
 		// like "Notice: Undefined index: smwgNamespaceIndex ..." would appear and
 		// to produce a proper error message avoid those by adding a default.
 		if ( !defined( 'SMW_VERSION' ) || !isset( $GLOBALS['smwgNamespaceIndex'] ) ) {
-			NamespaceManager::initCustomNamespace( $GLOBALS );
+			Globals::replace(
+				NamespaceManager::initCustomNamespace( $GLOBALS )['newVars']
+			);
 		}
 
 		/**
@@ -199,6 +201,7 @@ class Settings extends Options {
 			'smwgElasticsearchConfig' => $GLOBALS['smwgElasticsearchConfig'],
 			'smwgElasticsearchProfile' => $GLOBALS['smwgElasticsearchProfile'],
 			'smwgElasticsearchEndpoints' => $GLOBALS['smwgElasticsearchEndpoints'],
+            'smwgElasticsearchCredentials' => $GLOBALS['smwgElasticsearchCredentials'],
 			'smwgPostEditUpdate' => $GLOBALS['smwgPostEditUpdate'],
 			'smwgSpecialAskFormSubmitMethod' => $GLOBALS['smwgSpecialAskFormSubmitMethod'],
 			'smwgSupportSectionTag' => $GLOBALS['smwgSupportSectionTag'],

@@ -47,11 +47,11 @@ class SpecialPageProperty extends SpecialPage {
 		}
 
 		if ( $query !== '' ) {
-			$query = Encoder::unescape( $query );
+			$query = Encoder::unescape( (string)$query );
 		}
 
 		// Get parameters
-		$pagename = $request->getVal( 'from' );
+		$pagename = $request->getVal( 'from', '' );
 		$propname = $request->getVal( 'type' );
 
 		// No GET parameters? Try the URL with the convention `PageName::PropertyName`
@@ -172,7 +172,7 @@ class SpecialPageProperty extends SpecialPage {
 		$output->addModules( 'ext.smw.tooltip' );
 
 		$output->addModules( 'ext.smw.autocomplete.property' );
-		$output->addModules( 'ext.smw.autocomplete.article' );
+		$output->addModules( 'ext.smw.autocomplete.page' );
 
 		$output->addHTML( $html );
 	}

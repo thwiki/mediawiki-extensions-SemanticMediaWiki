@@ -128,6 +128,12 @@ return (function() {
 		##
 
 		###
+		# @since 4.1.3
+		##
+		'smwgIgnoreUpgradeKeyCheck' => false,
+		##
+
+		###
 		# Use another storage backend for Semantic MediaWiki. The default is suitable
 		# for most uses of SMW.
 		#
@@ -1103,13 +1109,16 @@ return (function() {
 
 		###
 		# List of Special:SemanticMediaWiki (or Special:SMWAdmin) features
+		# https://www.semantic-mediawiki.org/wiki/Help:$smwgAdminFeatures
 		#
 		# - SMW_ADM_REFRESH: to initiate the repairing or updating of all wiki data
-		# - SMW_ADM_SETUP: restrict to "Database installation and upgrade"
-		# - SMW_ADM_DISPOSAL: restrict access to the "Object ID lookup and disposal"
+		# - SMW_ADM_SETUP: Allows running database installation and upgrade
+		# - SMW_ADM_DISPOSAL: Allows access to the "Object ID lookup and disposal"
 		#   feature and the "Outdated entities disposal"
-		# - SMW_ADM_PSTATS: Property statistics update
-		# - SMW_ADM_FULLT:
+		# - SMW_ADM_PSTATS: Allows updating property statistics
+		# - SMW_ADM_FULLT: Allows rebuilding the fulltext search index
+		# - SMW_ADM_MAINTENANCE_SCRIPT_DOCS: Show maintenance scripts documentation tab
+		# - SMW_ADM_SHOW_OVERVIEW: Show the Overview tab
 		#
 		#   Maintenance alerts
 		#
@@ -1120,7 +1129,7 @@ return (function() {
 		##
 		'smwgAdminFeatures' =>
 		SMW_ADM_REFRESH | SMW_ADM_SETUP | SMW_ADM_DISPOSAL | SMW_ADM_PSTATS | SMW_ADM_FULLT |
-		SMW_ADM_ALERT_LAST_OPTIMIZATION_RUN,
+		SMW_ADM_MAINTENANCE_SCRIPT_DOCS | SMW_ADM_SHOW_OVERVIEW | SMW_ADM_ALERT_LAST_OPTIMIZATION_RUN,
 		##
 
 		###
@@ -2480,6 +2489,16 @@ return (function() {
 			// [ 'host' => '127.0.0.1', 'port' => 9200, 'scheme' => 'http' ],
 			// [ 'host' => '127.0.0.1', 'port' => 9200, 'scheme' => 'http', 'user' => 'username', 'pass' => 'password!#$?*abc' ]
 			// 'localhost:9200'
+		],
+
+		##
+		# ElasticSearch basic authentication credentials
+		#
+		# @since 4.2
+		##
+		'smwgElasticsearchCredentials' => [
+			// 'user' => 'foo', 'pass' => 'bar'
+			// 'foo', 'bar'
 		],
 
 		/**

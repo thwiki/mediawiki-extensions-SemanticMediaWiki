@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Botuzhaleny-sodamo",
-			"Rueter"
+			"Rueter",
+			"Сантяй"
 		]
 	},
 	"smw_printername_table": "Таблица",
@@ -20,9 +21,9 @@
 	"smw-ask-order-rand": "Кодамо-понгсь",
 	"smw-ask-delete": "Нардамс",
 	"smw_sbv_property": "Уликсчись:",
-	"browse": "Лопа-лопа ланга ютамо",
+	"browse": "Лопатнень ваннома",
 	"smw_browse_go": "Адя",
-	"smw_pp_type": "Уликсчи",
+	"smw_pp_type": "Уликсчись:",
 	"smw-ui-tooltip-title-info": "Информация",
 	"smw-ui-tooltip-title-error": "Ильведевкс",
 	"smw-ui-tooltip-title-parameter": "Параметра",

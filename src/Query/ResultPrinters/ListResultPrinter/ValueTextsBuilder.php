@@ -3,8 +3,10 @@
 namespace SMW\Query\ResultPrinters\ListResultPrinter;
 
 use Linker;
+use Sanitizer;
 use SMWDataValue;
 use SMWResultArray;
+use SMW\Query\ResultPrinters\PrefixParameterProcessor;
 
 /**
  * Class ValueTextsBuilder
@@ -19,6 +21,11 @@ class ValueTextsBuilder {
 	use ParameterDictionaryUser;
 
 	private $linker;
+	private $prefixParameterProcessor;
+
+	public function __construct( PrefixParameterProcessor $prefixParameterProcessor ) {		
+		$this->prefixParameterProcessor = $prefixParameterProcessor;
+	}
 
 	/**
 	 * @param SMWResultArray $field
@@ -64,8 +71,10 @@ class ValueTextsBuilder {
 	 * @return string
 	 */
 	private function getValueText( SMWDataValue $value, $column = 0 ) {
+		$isSubject = ( $column === 0 );
+		$dataValueMethod = $this->prefixParameterProcessor->useLongText( $isSubject ) ? 'getLongText' : 'getShortText';
 
-		$text = $value->getShortText( SMW_OUTPUT_WIKI, $this->getLinkerForColumn( $column ) );
+		$text = $value->$dataValueMethod( SMW_OUTPUT_WIKI, $this->getLinkerForColumn( $column ) );
 
 		return $this->sanitizeValueText( $text );
 	}
@@ -113,7 +122,15 @@ class ValueTextsBuilder {
 			return $text;
 		}
 
-		return \Sanitizer::removeHTMLtags( $text, null, [], [], [ 'table', 'tr', 'th', 'td', 'dl', 'dd', 'ul', 'li', 'ol' ] );
+		if ( method_exists( Sanitizer::class, 'removeSomeTags' ) ) {
+			return Sanitizer::removeSomeTags(
+				$text, [ 'removeTags' => [ 'table', 'tr', 'th', 'td', 'dl', 'dd', 'ul', 'li', 'ol' ] ]
+			);
+		} else {
+			return Sanitizer::removeHTMLtags(
+				$text, null, [], [], [ 'table', 'tr', 'th', 'td', 'dl', 'dd', 'ul', 'li', 'ol' ]
+			);
+		}
 	}
 
 	/**

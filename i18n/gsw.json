@@ -17,7 +17,6 @@
 	"smw_noinvannot": "Wärt chenne nit mit umgchehrte Eigeschafte gchännzeichnet wäre",
 	"version-semantic": "Semantischi Erwyterige",
 	"smw_baduri": "URI mit dr Form „$1“ sin nit zuelässig.",
-	"smw_dsv_link": "DSV",
 	"smw_printername_count": "Zellerergebnis",
 	"smw_printername_csv": "CSV-Export",
 	"smw_printername_dsv": "DSV-Export",
@@ -185,5 +184,6 @@
 	"smw_concept_header": "Syte vum Konzäpt „$1“",
 	"smw_conceptarticlecount": "S {{PLURAL:$1|wird ei Syten|wäre $1 Syten}} aazeigt, wu zue däm Konzäpt {{PLURAL:$1|ghert|ghere}}:",
 	"smw-livepreview-loading": "Am Lade …",
-	"smw-listingcontinuesabbrev": "(Forts.)"
+	"smw-listingcontinuesabbrev": "(Forts.)",
+	"smw-showingresults": "Do {{PLURAL:$1|isch '''1''' Ergebnis|sin '''$1''' Ergebniss}}, s fangt aa mit dr Nummerer '''$2.'''"
 }

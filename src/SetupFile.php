@@ -73,13 +73,13 @@ class SetupFile {
 			);
 	}
 
-	public function loadSchema( array &$vars = [] ): void {
+	public function loadSchema( array &$vars = [] ): array {
 		if ( $vars === [] ) {
 			$vars = $GLOBALS;
 		}
 
 		if ( isset( $vars[self::SMW_JSON] ) ) {
-			return;
+			return $vars;
 		}
 
 		$smwJson = $this->repo->loadSmwJson( $vars['smwgConfigFileDir'] );
@@ -87,6 +87,8 @@ class SetupFile {
 		if ( $smwJson !== null ) {
 			$vars[self::SMW_JSON] = $smwJson;
 		}
+
+		return $vars;
 	}
 
 	public static function isGoodSchema( bool $isCli = false ): bool {
@@ -358,8 +360,10 @@ class SetupFile {
 			// NULL means that the key key is removed
 			if ( $value === null ) {
 				unset( $vars[self::SMW_JSON][$id][$key] );
+				unset( $GLOBALS[self::SMW_JSON][$id][$key] );
 			} else {
 				$vars[self::SMW_JSON][$id][$key] = $value;
+				$GLOBALS[self::SMW_JSON][$id][$key] = $value;
 			}
 		}
 
@@ -371,9 +375,11 @@ class SetupFile {
 		// Remove legacy
 		if ( isset( $vars[self::SMW_JSON]['upgradeKey'] ) ) {
 			unset( $vars[self::SMW_JSON]['upgradeKey'] );
+			unset( $GLOBALS[self::SMW_JSON]['upgradeKey'] );
 		}
 		if ( isset( $vars[self::SMW_JSON][$id]['in.maintenance_mode'] ) ) {
 			unset( $vars[self::SMW_JSON][$id]['in.maintenance_mode'] );
+			unset( $GLOBALS[self::SMW_JSON][$id]['in.maintenance_mode'] );
 		}
 
 		try {

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Игорь Бродский"
+			"Игорь Бродский",
+			"Лариса Чиркова"
 		]
 	},
 	"smw_viewasrdf": "RDF-purde",
@@ -15,6 +16,7 @@
 	"ask": "Semantine ecind",
 	"smw_ask_submit": "Löuta rezul'tatad",
 	"smw_ask_editquery": "Redaktiruida küzund",
+	"browse": "Kacu wiki",
 	"smw_browse_go": "Mäne",
 	"smw_pp_from": "Lehtpolelpäi",
 	"smw_pp_type": "Ičend",
@@ -25,5 +27,6 @@
 	"smw_result_noresults": "Ei ole rezul'tatoid.",
 	"smwadmin": "Redaktiruida Semantic MediaWiki",
 	"smw-livepreview-loading": "Ozutase…",
-	"smw-listingcontinuesabbrev": "jatktand"
+	"smw-listingcontinuesabbrev": "jatktand",
+	"smw-showingresults": "Alemba ozutadas {{PLURAL:$1|'''1''' rezul'tat|'''$1''' rezul'tatad}} nomeraspäi #'''$2''' augotaden."
 }

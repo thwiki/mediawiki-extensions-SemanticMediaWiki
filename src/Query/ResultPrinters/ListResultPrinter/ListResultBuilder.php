@@ -4,6 +4,7 @@ namespace SMW\Query\ResultPrinters\ListResultPrinter;
 
 use Linker;
 use SMW\Message;
+use SMW\Query\ResultPrinters\PrefixParameterProcessor;
 use SMWQueryResult;
 
 /**
@@ -250,7 +251,10 @@ class ListResultBuilder {
 			$rowBuilder = new TemplateRowBuilder( $this->getTemplateRendererFactory() );
 		}
 
-		$valueTextsBuilder = new ValueTextsBuilder();
+		$prefixParameterProcessor = new PrefixParameterProcessor( $this->queryResult->getQuery(),
+			$this->configuration->get('prefix') );
+
+		$valueTextsBuilder = new ValueTextsBuilder( $prefixParameterProcessor );
 		$valueTextsBuilder->setLinker( $this->linker );
 		$valueTextsBuilder->setConfiguration( $this->configuration );
 

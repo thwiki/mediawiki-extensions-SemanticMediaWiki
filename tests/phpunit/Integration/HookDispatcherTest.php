@@ -18,6 +18,8 @@ class HookDispatcherTest extends \PHPUnit_Framework_TestCase {
 
 	private $mwHooksHandler;
 
+	private $testEnvironment;
+
 	protected function setUp() : void {
 		parent::setUp();
 
@@ -384,9 +386,7 @@ class HookDispatcherTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$anotherFile->extraProperty = 'Foo';
-
-		$this->assertNotEquals(
+		$this->assertNotSame(
 			$anotherFile,
 			$file
 		);
@@ -397,7 +397,7 @@ class HookDispatcherTest extends \PHPUnit_Framework_TestCase {
 
 		$hookDispatcher->onChangeFile( $title, $file );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$anotherFile,
 			$file
 		);
@@ -419,9 +419,7 @@ class HookDispatcherTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$anotherRevision->extraProperty = 'Foo';
-
-		$this->assertNotEquals(
+		$this->assertNotSame(
 			$revision,
 			$anotherRevision
 		);
@@ -432,7 +430,7 @@ class HookDispatcherTest extends \PHPUnit_Framework_TestCase {
 
 		$hookDispatcher->onChangeRevision( $title, $revision );
 
-		$this->assertEquals(
+		$this->assertSame(
 			$anotherRevision,
 			$revision
 		);

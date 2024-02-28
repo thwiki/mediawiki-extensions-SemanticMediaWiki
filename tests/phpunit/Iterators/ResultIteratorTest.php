@@ -51,6 +51,11 @@ class ResultIteratorTest extends \PHPUnit_Framework_TestCase {
 				$value
 			);
 		}
+
+		$this->assertEquals(
+			2,
+			$instance->key()
+		);
 	}
 
 	public function testdoSeekOnArray() {
@@ -70,11 +75,11 @@ class ResultIteratorTest extends \PHPUnit_Framework_TestCase {
 
 	public function testdoIterateOnResultWrapper() {
 
-		$resultWrapper = $this->getMockBuilder( '\ResultWrapper' )
+		$resultWrapper = $this->getMockBuilder( '\Wikimedia\Rdbms\ResultWrapper' )
 			->disableOriginalConstructor()
 			->getMock();
 
-		$resultWrapper->expects( $this->once() )
+		$resultWrapper->expects( $this->exactly( 3 ) )
 			->method( 'numRows' )
 			->will( $this->returnValue( 1 ) );
 
