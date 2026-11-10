@@ -14,6 +14,7 @@ use SMW\SQLStore\EntityStore\DataItemHandlers\DIUriHandler;
 use SMW\SQLStore\EntityStore\DataItemHandlers\DIWikiPageHandler;
 use SMW\SQLStore\EntityStore\Exception\DataItemHandlerException;
 use SMW\SQLStore\SQLStore;
+use MediaWiki\MediaWikiServices;
 
 /**
  * @license GPL-2.0-or-later
@@ -94,7 +95,19 @@ class DataItemHandlerFactory {
 			case DataItem::TYPE_ERROR:
 				throw new DataItemHandlerException( "There is no DI handler for DataItem::TYPE_ERROR." );
 			default:
-				throw new DataItemHandlerException( "The value \"$type\" is not a valid dataitem ID." );
+				// [THBWiki F-17] SMW 7.4 删除了 SMW::DataItemHandlerFactory::newHandlerByType
+				// 钩子，自定义 DataItem 类型（_pri 价格、_lin 链接）无法注册 handler。
+				// 这里恢复 4.1 的注入点，DurationExtension 等扩展可继续提供 handler。
+				$handler = null;
+				$store = $this->store;
+				MediaWikiServices::getInstance()->getHookContainer()->run(
+					'SMW::DataItemHandlerFactory::newHandlerByType',
+					[ $type, &$store, &$handler ]
+				);
+
+				if ( empty( $handler ) ) {
+					throw new DataItemHandlerException( "The value \"$type\" is not a valid dataitem ID." );
+				}
 		}
 
 		$handler->setFieldTypeFeatures(

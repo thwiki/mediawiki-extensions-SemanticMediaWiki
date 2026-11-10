@@ -6,6 +6,7 @@ use SMW\DataItems\DataItem;
 use SMW\DataItems\Property;
 use SMW\DataTypeRegistry;
 use SMW\TypesRegistry;
+use MediaWiki\MediaWikiServices;
 
 /**
  * @license GPL-2.0-or-later
@@ -49,6 +50,28 @@ class PropertyTableInfoFetcher {
 		DataItem::TYPE_WIKIPAGE   => 'smw_di_wikipage',
 		// DataItem::TYPE_CONCEPT    => '', // _CONC is the only property of this type
 	];
+
+	/**
+	 * [THBWiki F-17] SMW 7.4 删除了 `SMW::PropertyTableInfoFetcher::DiTypeTableIdMap`
+	 * 钩子，导致 DurationExtension 这类注册自定义 DataItem 类型（_pri 价格、_lin 链接）
+	 * 的扩展无法再声明自己的属性表 → 排序/查询时 `findTableIdForDataTypeTypeId()`
+	 * 返回空串、QueryEngine 抛 OutOfBoundsException。这里恢复 4.1 的钩子语义。
+	 *
+	 * @return array
+	 */
+	private static function getDiTypeTableIdMap() {
+		static $diTypeTableIdMap = null;
+
+		if ( $diTypeTableIdMap === null ) {
+			$diTypeTableIdMap = self::$defaultDiTypeTableIdMap;
+			MediaWikiServices::getInstance()->getHookContainer()->run(
+				'SMW::PropertyTableInfoFetcher::DiTypeTableIdMap',
+				[ &$diTypeTableIdMap ]
+			);
+		}
+
+		return $diTypeTableIdMap;
+	}
 
 	/**
 	 * @since 2.5
@@ -103,8 +126,10 @@ class PropertyTableInfoFetcher {
 	 * @return string
 	 */
 	public static function findTableIdForDataItemTypeId( $dataItemId ) {
-		if ( array_key_exists( $dataItemId, self::$defaultDiTypeTableIdMap ) ) {
-			return self::$defaultDiTypeTableIdMap[$dataItemId];
+		$diTypeTableIdMap = self::getDiTypeTableIdMap();
+
+		if ( array_key_exists( $dataItemId, $diTypeTableIdMap ) ) {
+			return $diTypeTableIdMap[$dataItemId];
 		}
 
 		return '';
@@ -116,7 +141,7 @@ class PropertyTableInfoFetcher {
 	 * @return array
 	 */
 	public function getDefaultDataItemTables(): array {
-		return array_values( self::$defaultDiTypeTableIdMap );
+		return array_unique( array_values( self::getDiTypeTableIdMap() ) );
 	}
 
 	/**
@@ -204,7 +229,7 @@ class PropertyTableInfoFetcher {
 		);
 
 		$definitionBuilder->doBuild(
-			self::$defaultDiTypeTableIdMap,
+			self::getDiTypeTableIdMap(),
 			$enabledSpecialProperties,
 			$this->customFixedPropertyList
 		);
