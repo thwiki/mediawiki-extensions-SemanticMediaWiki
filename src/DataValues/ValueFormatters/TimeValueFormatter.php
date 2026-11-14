@@ -442,7 +442,7 @@ class TimeValueFormatter extends DataValueFormatter {
 		$dataItem = $this->dataValue->getDataItem();
 		$format = strtoupper( $this->dataValue->getOutputFormat() );
 
-		if ( $format == 'ISO' || $this->dataValue->getOutputFormat() == '-' ) {
+		if ( $format === '' || $format == 'ISO' || $this->dataValue->getOutputFormat() == '-' ) {
 			return $this->getISO8601Date();
 		} elseif ( $format == 'ISO-P' ) {
 			return $this->getPartialISO8601Date();
